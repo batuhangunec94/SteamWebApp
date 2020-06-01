@@ -1,0 +1,48 @@
+﻿@model List<Comment>
+
+
+
+    <div>
+        @if (Model.Count <= 0)
+        {
+            <p>No Comment</p>
+        }
+        else
+        {
+            
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td style="color:darkblue" width="200px">User Name</td>
+                        <td style="color:darkblue">Comment</td>
+                    </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+
+
+                    <tbody>
+                        <tr>
+                            <td style="color:blue" width="200px">@item.User.UserName</td>
+                            <td style="color:blue">@item.Content</td>
+                            @if (item.User.UserName == User.Identity.Name)
+                            {
+                                <td style="width:100px">
+                                    <form asp-controller="User" asp-action="DeleteComment" method="post" style="display:inline">
+                                        <input type="hidden" name="commentId" value="@item.Id" />
+                                        <input type="hidden" name="gameId" value="@item.GameId" />
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                    </form>
+                                </td>
+                            }
+
+                        </tr>
+                    </tbody>
+
+
+                }
+            </table>
+        }
+
+    </div>
+    

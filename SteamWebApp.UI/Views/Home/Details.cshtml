@@ -1,0 +1,125 @@
+﻿@model GameDetailsVM
+@{
+    ViewData["Title"] = "Details";
+}
+<style>
+    img.DetailsImg {
+    float: left;
+    position: relative;
+    width: 100%;
+}
+    h4.FiyatSettings {
+        width: auto;
+        float: left;
+        position: relative;
+        color:cornflowerblue;
+        margin-top:4px;
+        margin-right:15px;
+    }
+    .FiyatButton {
+    float: right;
+    width: auto;
+    position: relative;
+}
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <img class="DetailsImg img-fluid" src="~/img/@Model.Game.Image" alt="@Model.Game.Name"/>
+        </div>
+        <div class="col-md-9">
+            <h1>Game Name</h1>
+            <h4 class="mb-3">
+                @Model.Game.Name
+            </h4>
+            <hr />
+            <h4>Categories</h4>
+            @foreach (var item in Model.Categories)
+            {
+                <a asp-controller="Home" asp-action="List" asp-route-category="@item.Name.ToLower()" class="btn btn-link p-0 mb-3">
+                    @item.Name |
+                </a>
+
+            }
+
+            <div class="mb-3">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Description</h4>
+                        <p class="">
+                            @Html.Raw(Model.Game.Description)
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="FiyatButton">
+
+                @if (Model.Game.Price == 0)
+                {
+                    <h4 class="FiyatSettings">
+                        Free Game
+                    </h4>
+                }
+                else
+                {
+
+                    <h4 class="FiyatSettings">
+                        @Model.Game.Price TL
+                    </h4>
+                }
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                    if (Model.userId == null)
+                    {
+                        <form asp-controller="User" asp-action="AddToLibrary" method="post">
+                            <input type="hidden" name="gameId" value="@Model.Game.Id" />
+                            <input type="hidden" name="userName" value="@User.Identity.Name" />
+                            <button type="submit" class="btn btn-primary btn-lg">Add To Library</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <h4>You Have</h4>
+                    }
+
+                }
+                else
+                {
+                    <h4>login to buy </h4>
+                }
+            </div>
+            <div>
+                @await Component.InvokeAsync("Comment", new { gameId = Model.Game.Id })
+            </div>
+            @if (User.Identity.IsAuthenticated)
+            {
+        <form asp-controller="User" asp-action="submitComment" method="post">
+
+            <div class="form-group row">
+                <label asp-for="Content" class="col-md-2 col-form-label">Description</label>
+                <div class="col-md-10">
+                    <textarea class="form-control" id="editor" asp-for="Content" required=""></textarea>
+                    <span asp-validation-for="Content"></span>
+                </div>
+            </div>
+            <input type="hidden" name="gameId" value="@Model.Game.Id" />
+            <input type="hidden" name="userName" value="@User.Identity.Name" />
+            <button type="submit" class="btn btn-primary btn-lg">Submit Comment</button>
+        </form>
+            }
+
+
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+   $('.btn').click(function(){
+        if ($('#editor').val() == ""){
+            alert('Please complete the field');
+
+        }
+    });
+});
+</script>

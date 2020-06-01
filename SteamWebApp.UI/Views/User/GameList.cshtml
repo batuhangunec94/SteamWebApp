@@ -1,0 +1,53 @@
+﻿@model User
+@{
+    ViewData["Title"] = "GameList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Game Library</h1>
+
+<hr />
+@if (Model.GameUsers != null)
+{
+    foreach (var item in Model.GameUsers)
+    {
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <td style="width:200px;">Name</td>
+                    <td>Description</td>
+                    <td style="width:130px;"></td>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="width:200px;">@item.Game.Name</td>
+                    <td>@item.Game.Description</td>
+                    <td style="width:140px;">
+                        <form asp-controller="User" asp-action="DeleteGameForUser" method="post" style="display:inline">
+                            <input type="hidden" name="gameId" value="@item.Game.Id" />
+                            <input type="hidden" name="userId" value="@item.UserId" />
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+
+
+    }
+
+}
+else
+{
+    <div class="alert alert-warning">
+        <h4>No Products</h4>
+    </div>
+}
+
+
+
+

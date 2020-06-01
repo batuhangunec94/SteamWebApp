@@ -1,0 +1,28 @@
+﻿@model Game
+
+
+<div class="col-md-4 mb-3">
+    <div class="card">
+        <img src="~/img/@Model.Image" alt="@Model.Name" style="height:300px" />
+        <div class="card-body">
+            <h4 class="card-title">
+                <a href="#">@Model.Name</a>
+            </h4>
+
+            @if (Model.Price == 0)
+            {
+                <p style="font-size:16px;">FREE GAME</p>
+            }
+            else
+            {
+
+        <p> @Model.Price TL</p>
+            }
+            
+        </div>
+        <div class="card-footer text-center">
+            <a asp-controller="Home" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-primary btn-sm">Details</a>
+            
+        </div>
+    </div>
+</div>

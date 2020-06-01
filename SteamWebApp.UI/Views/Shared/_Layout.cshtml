@@ -1,0 +1,27 @@
+﻿
+<!DOCTYPE html>
+    <html>
+    <head>
+        <title></title>
+        <link href="/modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <style>
+            .containerBig {
+                margin-top: 80px;
+                width:80%;
+                float:left;
+                position:relative;
+                margin-left:10%;
+            }
+        </style>
+    </head>
+
+    <body>
+        <partial name="_Navbar" />
+        <div class="containerBig pt-100 mb-5">
+            @RenderBody()
+        </div>
+        <script src="~/modules/jquery/dist/jquery.min.js"></script>
+        <script src="~/modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        @RenderSection("Scripts", false)
+    </body>
+    </html>

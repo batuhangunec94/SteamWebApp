@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SteamWebApp.DAL\SteamWebApp.DAL.csproj" />
+    <ProjectReference Include="..\SteamWebApp.Entities\SteamWebApp.Entities.csproj" />
+  </ItemGroup>
+
+</Project>
