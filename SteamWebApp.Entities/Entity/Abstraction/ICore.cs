@@ -9,7 +9,6 @@ namespace SteamWebApp.Entities.Entity.Abstraction
         None = 0,
         Active = 1,
         Passive =2,
-        Update = 3
     }
     public interface ICore
     {
